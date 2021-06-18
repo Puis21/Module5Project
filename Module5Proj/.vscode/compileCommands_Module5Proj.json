@@ -1,0 +1,67 @@
+[
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Module5Proj.Build.cs",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Module5Proj.cpp",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Module5Proj.h",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Module5ProjCharacter.cpp",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Module5ProjCharacter.h",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Module5ProjGameMode.cpp",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Module5ProjGameMode.h",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Module5ProjHUD.cpp",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Module5ProjHUD.h",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Module5ProjProjectile.cpp",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Module5ProjProjectile.h",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Player\\\\Module5ProjGameMode.cpp",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	},
+	{
+		"file": "C:\\\\Users\\\\Puia\\\\Documents\\\\Unreal Projects\\\\Module5Proj\\\\Source\\\\Module5Proj\\\\Player\\\\Module5ProjGameMode.h",
+		"command": "cl.exe @\"C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj\\Module5Proj.182.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_4.26\\Engine\\Source"
+	}
+]

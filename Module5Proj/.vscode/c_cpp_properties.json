@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "Module5ProjEditor Editor Win64 Development (Module5Proj)",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Module5Proj.json",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
+        },
+        {
+            "name": "Win32",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "C:\\Users\\Puia\\Documents\\Unreal Projects\\Module5Proj\\.vscode\\compileCommands_Default.json",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
