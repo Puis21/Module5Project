@@ -10,14 +10,15 @@
 #include "GameFramework/InputSettings.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
-
+#include "Components/PlayerMovementComponent.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
 //////////////////////////////////////////////////////////////////////////
 // APlayerCharacter
 
-APlayerCharacter::APlayerCharacter()
+APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
+	: Super(ObjectInitializer.SetDefaultSubobjectClass<UPlayerMovementComponent>(ACharacter::CharacterMovementComponentName))
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
@@ -56,8 +57,19 @@ APlayerCharacter::APlayerCharacter()
 	// Default offset from the character location for projectiles to spawn
 	GunOffset = FVector(100.0f, 0.0f, 10.0f);
 
-	// Note: The ProjectileClass and the skeletal mesh/anim blueprints for Mesh1P, FP_Gun, and VR_Gun 
-	// are set in the derived blueprint asset named MyCharacter to avoid direct content references in C++.
+	m_bSprinting = false;
+	
+}
+
+void APlayerCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	UPlayerMovementComponent* pPlayerMovementComponent = Cast<UPlayerMovementComponent>(GetCharacterMovement());
+	if (pPlayerMovementComponent)
+	{
+		m_ACPlayerMovementComponent = pPlayerMovementComponent;
+	}
 
 }
 
@@ -97,6 +109,11 @@ void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 	PlayerInputComponent->BindAxis("TurnRate", this, &APlayerCharacter::TurnAtRate);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &APlayerCharacter::LookUpAtRate);
+
+	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &APlayerCharacter::OnSprint);
+
+	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &APlayerCharacter::OnCrouch);
+
 }
 
 void APlayerCharacter::OnFire()
@@ -140,31 +157,6 @@ void APlayerCharacter::OnFire()
 	}
 }
 
-void APlayerCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == true)
-	{
-		return;
-	}
-	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
-	{
-		OnFire();
-	}
-	TouchItem.bIsPressed = true;
-	TouchItem.FingerIndex = FingerIndex;
-	TouchItem.Location = Location;
-	TouchItem.bMoved = false;
-}
-
-void APlayerCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == false)
-	{
-		return;
-	}
-	TouchItem.bIsPressed = false;
-}
-
 void APlayerCharacter::MoveForward(float Value)
 {
 	if (Value != 0.0f)
@@ -172,6 +164,15 @@ void APlayerCharacter::MoveForward(float Value)
 		// add movement in that direction
 		AddMovementInput(GetActorForwardVector(), Value);
 	}
+	
+	if (Value == 0.0f)
+	{
+		if (m_ACPlayerMovementComponent)
+		{
+			m_ACPlayerMovementComponent->StopSprinting();
+		}
+	}
+			
 }
 
 void APlayerCharacter::MoveRight(float Value)
@@ -181,6 +182,15 @@ void APlayerCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(GetActorRightVector(), Value);
 	}
+
+	/*if (Value == 0.0f)
+	{
+		if (m_ACPlayerMovementComponent)
+		{
+			m_ACPlayerMovementComponent->StopSprinting();
+		}
+	}*/
+
 }
 
 void APlayerCharacter::TurnAtRate(float Rate)
@@ -193,4 +203,29 @@ void APlayerCharacter::LookUpAtRate(float Rate)
 {
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
+}
+
+void APlayerCharacter::OnSprint()
+{
+	m_bSprinting = true;	
+	if(m_ACPlayerMovementComponent)
+	{
+		m_ACPlayerMovementComponent->StartSprinting();
+	}
+ 
+}
+
+void APlayerCharacter::OnCrouch()
+{
+	UE_LOG(LogTemp, Warning, TEXT("ALLO"));
+	if (!GetCharacterMovement()->IsCrouching())
+	{
+		GetCharacterMovement()->bWantsToCrouch = true;
+		GetCharacterMovement()->Crouch();
+	}
+	else
+	{
+		GetCharacterMovement()->bWantsToCrouch = false;
+		GetCharacterMovement()->UnCrouch();
+	}
 }

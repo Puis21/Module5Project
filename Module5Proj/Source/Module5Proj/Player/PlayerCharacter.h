@@ -13,6 +13,7 @@ class UCameraComponent;
 class UMotionControllerComponent;
 class UAnimMontage;
 class USoundBase;
+class UPlayerMovementComponent;
 
 UCLASS(config=Game)
 class APlayerCharacter : public ACharacter
@@ -35,13 +36,14 @@ class APlayerCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FirstPersonCameraComponent;
 
-public:
-	APlayerCharacter();
-
 protected:
 	virtual void BeginPlay();
 
 public:
+
+	APlayerCharacter(const FObjectInitializer& ObjectInitializer);
+	virtual void PostInitializeComponents() override;
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseTurnRate;
@@ -71,9 +73,6 @@ protected:
 	/** Fires a projectile. */
 	void OnFire();
 
-	/** Resets HMD orientation and position in VR. */
-	void OnResetVR();
-
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);
 
@@ -92,18 +91,9 @@ protected:
 	 */
 	void LookUpAtRate(float Rate);
 
-	struct TouchData
-	{
-		TouchData() { bIsPressed = false;Location=FVector::ZeroVector;}
-		bool bIsPressed;
-		ETouchIndex::Type FingerIndex;
-		FVector Location;
-		bool bMoved;
-	};
-	void BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-	void EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-	void TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location);
-	TouchData	TouchItem;
+	void OnSprint();
+
+	void OnCrouch();
 	
 protected:
 	// APawn interface
@@ -116,5 +106,14 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+
+private:
+
+	UPROPERTY( Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = ( AllowPrivateAccess = "true" ), DisplayName = "Henrique First Person Character Movement Component" )
+	UPlayerMovementComponent* m_ACPlayerMovementComponent;
+
+	bool m_bSprinting;
+
 };
+
 
