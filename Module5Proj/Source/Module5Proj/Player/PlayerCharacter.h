@@ -39,6 +39,8 @@ class APlayerCharacter : public ACharacter
 protected:
 	virtual void BeginPlay();
 
+	virtual void Tick(float Deltatime);
+
 public:
 
 	APlayerCharacter(const FObjectInitializer& ObjectInitializer);
