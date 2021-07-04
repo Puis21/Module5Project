@@ -57,7 +57,8 @@ APlayerCharacter::APlayerCharacter(const FObjectInitializer& ObjectInitializer)
 	// Default offset from the character location for projectiles to spawn
 	GunOffset = FVector(100.0f, 0.0f, 10.0f);
 
-	m_bSprinting = false;
+	m_bPressedSprint = false;
+	bPressedCrouch = false;
 	
 }
 
@@ -86,6 +87,11 @@ void APlayerCharacter::BeginPlay()
 void APlayerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (GEngine)
+	{
+		//GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Black, FString::Printf(TEXT("Bool: %s"), m_bPressedSprint ? TEXT("true") : TEXT("false")));
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -116,6 +122,7 @@ void APlayerCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerIn
 	PlayerInputComponent->BindAxis("LookUpRate", this, &APlayerCharacter::LookUpAtRate);
 
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &APlayerCharacter::OnSprint);
+	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &APlayerCharacter::StoppedPressed);
 
 	PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &APlayerCharacter::OnCrouch);
 
@@ -212,7 +219,7 @@ void APlayerCharacter::LookUpAtRate(float Rate)
 
 void APlayerCharacter::OnSprint()
 {
-	m_bSprinting = true;	
+	m_bPressedSprint = true;
 	if(m_ACPlayerMovementComponent)
 	{
 		m_ACPlayerMovementComponent->StartSprinting();
@@ -220,9 +227,30 @@ void APlayerCharacter::OnSprint()
  
 }
 
+void APlayerCharacter::StoppedPressed()
+{
+	//m_bPressedSprint = false;
+}
+
 void APlayerCharacter::OnCrouch()
 {
-	UE_LOG(LogTemp, Warning, TEXT("ALLO"));
+	if (m_ACPlayerMovementComponent)
+	{
+		if (!bPressedCrouch)
+		{
+			bPressedCrouch = true;
+			m_ACPlayerMovementComponent->StartCrouching();
+			//UE_LOG(LogTemp, Warning, TEXT("START CROUCH"));
+		}
+		else
+		{
+			bPressedCrouch = false;
+			m_ACPlayerMovementComponent->UnCrouching();
+			//UE_LOG(LogTemp, Warning, TEXT("STOP CROUCH"));
+		}
+	}
+
+	/*UE_LOG(LogTemp, Warning, TEXT("ALLO"));
 	if (!GetCharacterMovement()->IsCrouching())
 	{
 		GetCharacterMovement()->bWantsToCrouch = true;
@@ -232,5 +260,10 @@ void APlayerCharacter::OnCrouch()
 	{
 		GetCharacterMovement()->bWantsToCrouch = false;
 		GetCharacterMovement()->UnCrouch();
-	}
+	}*/
+}
+
+bool APlayerCharacter::GetPressedSprint()
+{
+	return m_bPressedSprint;
 }

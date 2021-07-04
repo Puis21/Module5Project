@@ -96,6 +96,8 @@ protected:
 	void OnSprint();
 
 	void OnCrouch();
+
+	void StoppedPressed();
 	
 protected:
 	// APawn interface
@@ -108,14 +110,22 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	bool m_bPressedSprint;
 
 private:
 
 	UPROPERTY( Category = Character, VisibleAnywhere, BlueprintReadOnly, meta = ( AllowPrivateAccess = "true" ), DisplayName = "Henrique First Person Character Movement Component" )
 	UPlayerMovementComponent* m_ACPlayerMovementComponent;
 
-	bool m_bSprinting;
+public: 
 
+	bool GetPressedSprint();
+
+	//int32 GetWeaponMaxReserveAmmo() { return m_iWeaponMaxReserveAmmo; }
+
+	void SetPressedSprint(bool C) { m_bPressedSprint = C; }
+
+	bool bPressedCrouch;
 };
 
 
