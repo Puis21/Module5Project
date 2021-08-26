@@ -10,8 +10,8 @@
 AModule5ProjHUD::AModule5ProjHUD()
 {
 	// Set the crosshair texture
-	static ConstructorHelpers::FObjectFinder<UTexture2D> CrosshairTexObj(TEXT("/Game/FirstPerson/Textures/FirstPersonCrosshair"));
-	CrosshairTex = CrosshairTexObj.Object;
+	//static ConstructorHelpers::FObjectFinder<UTexture2D> CrosshairTexObj(TEXT("/Game/FirstPerson/Textures/Cross"));
+	//CrosshairTex = CrosshairTexObj.Object;
 }
 
 
@@ -20,7 +20,8 @@ void AModule5ProjHUD::DrawHUD()
 	Super::DrawHUD();
 
 	// Draw very simple crosshair
-
+	if(CrosshairTex)
+	{
 	// find center of the Canvas
 	const FVector2D Center(Canvas->ClipX * 0.5f, Canvas->ClipY * 0.5f);
 
@@ -32,4 +33,6 @@ void AModule5ProjHUD::DrawHUD()
 	FCanvasTileItem TileItem( CrosshairDrawPosition, CrosshairTex->Resource, FLinearColor::White);
 	TileItem.BlendMode = SE_BLEND_Translucent;
 	Canvas->DrawItem( TileItem );
+			
+	}
 }

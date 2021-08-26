@@ -8,6 +8,7 @@
 #include "PlayerMovementComponent.generated.h"
 
 class APlayerCharacter;
+//class UPlayerCameraComponent;
 class UCameraComponent;
 
 UENUM(BlueprintType)
@@ -57,13 +58,13 @@ public:
 
 	void StartMovementStateSwitch(EMovementState eNewMovementState);
 
-	void CalculateFloorInfluence();
-
 	bool CanSprint() const;
 
 	bool CanStand() const;
 
 	bool CheckCapsuleCollision(FVector Center, float HalfHeight, float Radius, bool DrawDebug)const;
+
+	void TEST();
 
 protected:
 	// Called when the game starts
@@ -71,11 +72,13 @@ protected:
 
 	FTimeline m_CrouchingTimeline;
 
+	FTimeline m_CameraTiltTimeline;
+
 	UPROPERTY(EditAnywhere, Category = "Timeline | Capsule Scale Down")
 	UCurveFloat* m_pCapsuleHalfHeightCurve;
 
-	//UPROPERTY(EditAnywhere, Category = "Slide | Sliding Camera Tilt")
-	//UCurveFloat* m_pCameraTiltCurve;
+	UPROPERTY(EditAnywhere, Category = "Slide | Sliding Camera Tilt")
+	UCurveFloat* m_pCameraTiltCurve;
 
 public:
 

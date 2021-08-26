@@ -10,6 +10,7 @@
 #include <DrawDebugHelpers.h>
 #include "Engine/Engine.h"
 
+
 // Sets default values for this component's properties
 UPlayerMovementComponent::UPlayerMovementComponent()
 {
@@ -19,6 +20,9 @@ UPlayerMovementComponent::UPlayerMovementComponent()
 
 	m_fSprindSpeed = 1000.f;
 	m_fCrouchSpeed = 300.f;
+
+	AirControl = 0.25f;
+	AirControlBoostMultiplier = 2;
 }
 
 
@@ -26,8 +30,6 @@ UPlayerMovementComponent::UPlayerMovementComponent()
 void UPlayerMovementComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
-
 
 	m_pPlayerCharacter = Cast<APlayerCharacter>(GetOwner());
 	if (m_pPlayerCharacter)
@@ -38,7 +40,7 @@ void UPlayerMovementComponent::BeginPlay()
 	// Set Standing Capsule Half Height
 	m_fStandingCapsuleHalfHeight = m_pPlayerCharacter->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
 	// Set Relative Z Offset on Camera
-	m_fStandingCameraZOffSet = m_pPlayerCharacter->GetFirstPersonCameraComponent()->GetRelativeLocation().Z;
+	//m_fStandingCameraZOffSet = m_pPlayerCharacter->GetFirstPersonCameraComponent()->GetRelativeLocation().Z;
 
 	if (m_pCapsuleHalfHeightCurve)
 	{
@@ -58,9 +60,9 @@ void UPlayerMovementComponent::TimelineProgress(float fTransitionProgress)
 
 	float fNewCameraRelativeZ = FMath::Lerp(m_fStandingCameraZOffSet, m_fCrouchingCameraZOffset, fTransitionProgress);
 
-	FVector v3CameraRelativeLocation = m_pPlayerCharacter->GetFirstPersonCameraComponent()->GetRelativeLocation();
-	v3CameraRelativeLocation.Z = fNewCameraRelativeZ;
-	m_pPlayerCharacter->GetFirstPersonCameraComponent()->SetRelativeLocation(v3CameraRelativeLocation);
+	//FVector v3CameraRelativeLocation = m_pCameraComponent->GetRelativeLocation();
+	//v3CameraRelativeLocation.Z = fNewCameraRelativeZ;
+	//m_pCameraComponent->SetRelativeLocation(v3CameraRelativeLocation);
 }
 
 // Called every frame
@@ -106,13 +108,13 @@ void UPlayerMovementComponent::StopSprinting()
 
 void UPlayerMovementComponent::StartCrouching()
 {
-	if (eMovementState == EMovementState::Walking)
+	if (eMovementState == EMovementState::Walking || eMovementState == EMovementState::Sprinting)
 	{
 		StartMovementStateSwitch(EMovementState::Crouching);
 	}
 	else if (eMovementState == EMovementState::Sprinting)
 	{
-		StartMovementStateSwitch(EMovementState::Sliding);
+		//StartMovementStateSwitch(EMovementState::Sliding);
 	}
 
 }
@@ -235,11 +237,6 @@ void UPlayerMovementComponent::OnMovementStateChange(EMovementState& eNewMovemen
 
 }
 
-void UPlayerMovementComponent::CalculateFloorInfluence()
-{
-
-}
-
 bool UPlayerMovementComponent::CanSprint() const
 {
 	if (!m_pPlayerCharacter->GetPressedSprint())
@@ -307,4 +304,9 @@ bool UPlayerMovementComponent::CheckCapsuleCollision(FVector Center, float HalfH
 		DrawDebugCapsule(GetWorld(), Center, HalfHeight, Radius, FRotator(0.f, 0.f, 0.f).Quaternion(), DebugColour, false, 2.0f);
 	}
 	return bOverlapDetected;
+}
+
+void UPlayerMovementComponent::TEST()
+{
+	UE_LOG(LogTemp, Warning, TEXT("?D?SADSA"));
 }
